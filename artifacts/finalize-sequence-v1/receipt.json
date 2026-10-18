@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "artifactId": "finalize-sequence-v1",
+  "plugin": "archify",
+  "pluginVersion": "3.0.1",
+  "options": {
+    "type": "sequence"
+  },
+  "inputHash": "sha256:e7b63ae5d06a1c1c320e5524581f48e3abd2d498791962d3399111e590c58076",
+  "output": "finalize-sequence-v1.html",
+  "title": "ReDocs v1: redocs finalize",
+  "pluginReceipt": {
+    "status": "pass",
+    "gates": {
+      "validate": "pass",
+      "deliver": "pass",
+      "check": "pass",
+      "browser-check": "pass"
+    },
+    "diagnostics": []
+  }
+}

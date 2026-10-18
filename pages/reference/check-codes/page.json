@@ -1,0 +1,14 @@
+{
+  "id": "reference/check-codes",
+  "title": "Check codes",
+  "kind": "reference",
+  "status": "draft",
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: skill/redocs/lib/check-book-rules.mjs",
+    "redocs: skill/redocs/references/check-codes.md"
+  ],
+  "entities": [
+    "mod:check"
+  ]
+}

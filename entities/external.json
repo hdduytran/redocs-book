@@ -1,0 +1,14 @@
+[
+  {
+    "id": "ext:archify",
+    "type": "external",
+    "name": "archify skill",
+    "summary": "Renders architecture, workflow, sequence, dataflow and lifecycle diagrams"
+  },
+  {
+    "id": "ext:chrome",
+    "type": "external",
+    "name": "Chrome / Chromium",
+    "summary": "Headless browser for the browser check (REDOCS_CHROME)"
+  }
+]

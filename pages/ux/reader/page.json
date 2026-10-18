@@ -1,0 +1,11 @@
+{
+  "id": "ux/reader",
+  "title": "Reader experience",
+  "kind": "wireframe",
+  "status": "draft",
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: skill/redocs/assets/theme/",
+    "Screenshots of this book"
+  ]
+}

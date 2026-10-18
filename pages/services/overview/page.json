@@ -1,0 +1,11 @@
+{
+  "id": "services/overview",
+  "title": "Components",
+  "kind": "service",
+  "status": "draft",
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: skill/redocs/lib/",
+    "redocs: skill/redocs/bin/redocs.mjs"
+  ]
+}

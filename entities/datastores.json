@@ -1,0 +1,14 @@
+[
+  {
+    "id": "db:book-repo",
+    "type": "datastore",
+    "name": "Book repository",
+    "summary": "book.json, pages/, entities/, artifacts/, assets/, AGENTS.md: the source of truth"
+  },
+  {
+    "id": "db:dist",
+    "type": "datastore",
+    "name": "dist/",
+    "summary": "Static HTML site, one tree per milestone; git-ignored"
+  }
+]

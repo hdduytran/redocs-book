@@ -1,0 +1,14 @@
+{
+  "id": "flows/embed-artifact",
+  "title": "Embedding artifacts",
+  "kind": "flow",
+  "status": "draft",
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: skill/redocs/lib/command-embed-artifact.mjs",
+    "redocs: skill/redocs/lib/load-plugin-registry.mjs"
+  ],
+  "entities": [
+    "mod:embed"
+  ]
+}

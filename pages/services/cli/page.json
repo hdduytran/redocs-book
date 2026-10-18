@@ -1,0 +1,17 @@
+{
+  "id": "services/cli",
+  "title": "CLI and commands",
+  "kind": "module",
+  "status": "draft",
+  "updated": "2026-10-18",
+  "variants": {
+    "v1": "v1.md",
+    "v2": "v2.md"
+  },
+  "sources": [
+    "redocs: skill/redocs/bin/redocs.mjs"
+  ],
+  "entities": [
+    "mod:cli"
+  ]
+}

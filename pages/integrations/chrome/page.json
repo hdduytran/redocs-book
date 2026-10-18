@@ -1,0 +1,14 @@
+{
+  "id": "integrations/chrome",
+  "title": "Headless Chrome",
+  "kind": "integration",
+  "status": "draft",
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: skill/redocs/lib/chrome-cdp-file-protocol-check.mjs"
+  ],
+  "entities": [
+    "mod:cdp",
+    "ext:chrome"
+  ]
+}

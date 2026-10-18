@@ -1,0 +1,11 @@
+{
+  "id": "decisions/milestone-trees",
+  "title": "ADR-002: One page tree per milestone",
+  "kind": "decision",
+  "status": "accepted",
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: skill/redocs/lib/site-paths-and-urls.mjs",
+    "redocs: skill/redocs/lib/command-build-book-site.mjs"
+  ]
+}

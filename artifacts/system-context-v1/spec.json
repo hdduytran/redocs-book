@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "ReDocs v1: system context",
+    "output": "system-context-v1.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "owner", "type": "external", "label": "Owner", "sublabel": "system author", "pos": [40, 260], "size": [120, 60] },
+    { "id": "agent", "type": "frontend", "label": "AI agent", "sublabel": "follows SKILL.md", "pos": [280, 260], "size": [140, 60] },
+    { "id": "cli", "type": "backend", "label": "redocs CLI", "sublabel": "bin/redocs.mjs", "pos": [530, 260], "size": [140, 60] },
+    { "id": "engine", "type": "backend", "label": "Engine", "sublabel": "load, render, check", "pos": [740, 260], "size": [150, 60] },
+    { "id": "dist", "type": "database", "label": "dist/", "sublabel": "static HTML", "pos": [960, 260], "size": [130, 60] },
+    { "id": "reader", "type": "external", "label": "Reader", "sublabel": "browser, file://", "pos": [1220, 260], "size": [120, 60] },
+    { "id": "skill", "type": "backend", "label": "SKILL.md", "sublabel": "contract + router", "pos": [280, 90], "size": [140, 60] },
+    { "id": "archify", "type": "external", "label": "archify skill", "sublabel": "diagram renderer", "pos": [530, 440], "size": [140, 60] },
+    { "id": "repo", "type": "database", "label": "Book repo", "sublabel": "Git, source of truth", "pos": [750, 440], "size": [130, 60] },
+    { "id": "chrome", "type": "external", "label": "Chrome headless", "sublabel": "browser gate", "pos": [960, 90], "size": [130, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "ReDocs skill package", "wraps": ["skill", "cli", "engine"] }
+  ],
+  "connections": [
+    { "id": "owner-agent", "from": "owner", "to": "agent", "label": "instructions", "variant": "emphasis" },
+    { "id": "agent-cli", "from": "agent", "to": "cli", "label": "redocs <cmd>", "variant": "emphasis" },
+    { "id": "cli-engine", "from": "cli", "to": "engine", "label": "runs", "variant": "emphasis" },
+    { "id": "engine-dist", "from": "engine", "to": "dist", "label": "build", "variant": "emphasis" },
+    { "id": "dist-reader", "from": "dist", "to": "reader", "label": "open index.html", "variant": "emphasis" },
+    { "id": "skill-agent", "from": "skill", "to": "agent", "label": "reads", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "cli-archify", "from": "cli", "to": "archify", "label": "embed (plugin)", "fromSide": "bottom", "toSide": "top" },
+    { "id": "engine-repo", "from": "engine", "to": "repo", "label": "read / write", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "chrome-dist", "from": "chrome", "to": "dist", "label": "opens over file://", "variant": "security", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Authoring", "items": ["Owner instructs, agent writes", "Agent reads book.json and entities before editing", "Unknowns become TODO(owner)"] },
+    { "dot": "emerald", "title": "Engine", "items": ["Node ESM, deps: markdown-it, ajv, yazl", "One in-memory render feeds both check and build", "One page tree per milestone"] },
+    { "dot": "rose", "title": "Gate", "items": ["finalize = check, build, file:// browser check", "Done only when it exits 0"] },
+    { "dot": "slate", "title": "Sources", "items": ["skill/redocs/SKILL.md, bin/redocs.mjs, lib/*.mjs"] }
+  ]
+}

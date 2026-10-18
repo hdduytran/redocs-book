@@ -1,0 +1,130 @@
+[
+  {
+    "id": "mod:skill-md",
+    "type": "module",
+    "name": "SKILL.md + references",
+    "summary": "Agent contract and intent router; six reference documents"
+  },
+  {
+    "id": "mod:cli",
+    "type": "module",
+    "name": "redocs CLI",
+    "summary": "bin/redocs.mjs: parses arguments, runs commands, prints text or JSON receipts, exit codes 0/1/2"
+  },
+  {
+    "id": "mod:authoring",
+    "type": "module",
+    "name": "Authoring commands",
+    "summary": "init, add-page, add-entity, add-variant",
+    "depends_on": [
+      "mod:loader"
+    ]
+  },
+  {
+    "id": "mod:loader",
+    "type": "module",
+    "name": "Loader + schemas",
+    "summary": "Reads a book and validates it with ajv (JSON Schema 2020-12); problems become diagnostics",
+    "tech": [
+      "ajv"
+    ]
+  },
+  {
+    "id": "mod:renderer",
+    "type": "module",
+    "name": "Renderer",
+    "summary": "Markdown (markdown-it) and HTML fragments with page:, asset:, [[entity]] and redocs-embed; renders every page at every milestone in memory",
+    "tech": [
+      "markdown-it"
+    ],
+    "depends_on": [
+      "mod:loader"
+    ]
+  },
+  {
+    "id": "mod:check",
+    "type": "module",
+    "name": "Check gate",
+    "summary": "Rules RD000-RD012 over the rendered model",
+    "depends_on": [
+      "mod:renderer"
+    ]
+  },
+  {
+    "id": "mod:build",
+    "type": "module",
+    "name": "Build",
+    "summary": "Page shell, generated pages, search index, artifact and asset copies, distHash",
+    "depends_on": [
+      "mod:renderer"
+    ]
+  },
+  {
+    "id": "mod:finalize",
+    "type": "module",
+    "name": "Finalize",
+    "summary": "check, build, then the file:// browser check; writes finalize-receipt.json",
+    "depends_on": [
+      "mod:check",
+      "mod:build",
+      "mod:cdp"
+    ]
+  },
+  {
+    "id": "mod:cdp",
+    "type": "module",
+    "name": "Chrome CDP checker",
+    "summary": "Headless Chrome over --remote-debugging-pipe: console errors, failed requests, screenshots",
+    "depends_on": [
+      "ext:chrome"
+    ]
+  },
+  {
+    "id": "mod:embed",
+    "type": "module",
+    "name": "Embed + plugin registry",
+    "summary": "Copies the spec, runs the adapter, writes a receipt with the spec sha256; --refresh-stale",
+    "depends_on": [
+      "mod:loader"
+    ]
+  },
+  {
+    "id": "mod:pack",
+    "type": "module",
+    "name": "Pack",
+    "summary": "Deterministic zip of dist/ (yazl)",
+    "tech": [
+      "yazl"
+    ]
+  },
+  {
+    "id": "mod:promote",
+    "type": "module",
+    "name": "Promote",
+    "summary": "Moves the current milestone pointer and lists what to review"
+  },
+  {
+    "id": "mod:ui-i18n",
+    "type": "module",
+    "name": "Localized UI strings",
+    "summary": "Proposed: UI string table selected by book.json language",
+    "since": "v2"
+  },
+  {
+    "id": "mod:presentation",
+    "type": "module",
+    "name": "Presentation mode",
+    "summary": "Proposed: present one chapter as slides",
+    "since": "v2"
+  },
+  {
+    "id": "mod:pdf-export",
+    "type": "module",
+    "name": "Chapter PDF export",
+    "summary": "Proposed: print one chapter to PDF",
+    "depends_on": [
+      "mod:cdp"
+    ],
+    "since": "v2"
+  }
+]

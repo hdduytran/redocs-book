@@ -1,0 +1,57 @@
+name: Publish book
+
+on:
+  push:
+    branches: [main, initial-publish]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the book
+        uses: actions/checkout@v4
+
+      - name: Check out ReDocs
+        uses: actions/checkout@v4
+        with:
+          repository: hdduytran/redocs
+          path: _redocs
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install ReDocs dependencies
+        run: npm ci
+        working-directory: _redocs/skill/redocs
+
+      # check + build + file:// browser check with the runner's Chrome.
+      # Chrome's own sandbox is unavailable on hosted Ubuntu runners (AppArmor user namespaces).
+      - name: Finalize the book
+        env:
+          REDOCS_CHROME_NO_SANDBOX: "1"
+        run: node _redocs/skill/redocs/bin/redocs.mjs finalize .
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

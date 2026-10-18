@@ -1,0 +1,15 @@
+{
+  "id": "data/dist-layout",
+  "title": "dist/ layout",
+  "kind": "data",
+  "status": "draft",
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: skill/redocs/lib/site-paths-and-urls.mjs",
+    "redocs: skill/redocs/lib/build-generated-pages.mjs"
+  ],
+  "entities": [
+    "db:dist",
+    "mod:build"
+  ]
+}

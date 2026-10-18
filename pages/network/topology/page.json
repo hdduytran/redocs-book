@@ -1,0 +1,14 @@
+{
+  "id": "network/topology",
+  "title": "Runtime environment",
+  "kind": "infra",
+  "status": "draft",
+  "variants": {
+    "v1": "v1.md",
+    "v2": "v2.md"
+  },
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: spikes/file-protocol/RESULTS.md"
+  ]
+}

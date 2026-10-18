@@ -1,0 +1,14 @@
+{
+  "id": "integrations/archify",
+  "title": "archify",
+  "kind": "integration",
+  "status": "draft",
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: skill/redocs/plugins/archify/adapter-archify-finalize.mjs"
+  ],
+  "entities": [
+    "plugin:archify",
+    "ext:archify"
+  ]
+}

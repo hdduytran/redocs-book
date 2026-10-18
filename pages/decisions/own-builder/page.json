@@ -1,0 +1,11 @@
+{
+  "id": "decisions/own-builder",
+  "title": "ADR-001: Own builder instead of Starlight",
+  "kind": "decision",
+  "status": "accepted",
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: spikes/file-protocol/RESULTS.md",
+    "Advisory session with the owner, 2026-10-18"
+  ]
+}

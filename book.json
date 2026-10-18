@@ -1,0 +1,114 @@
+{
+  "$schema": "redocs/book.schema.json",
+  "schemaVersion": 1,
+  "id": "redocs",
+  "title": "ReDocs System Design Book",
+  "language": "en",
+  "milestones": [
+    {
+      "id": "v1",
+      "label": "v1 (0.1.0)",
+      "status": "current",
+      "date": "2026-10-18",
+      "description": "ReDocs 0.1.0 as built."
+    },
+    {
+      "id": "v2",
+      "label": "v2 (phase 2)",
+      "status": "planned",
+      "description": "Phase 2 backlog: UI strings per book language, presentation mode, chapter PDF export."
+    }
+  ],
+  "chapters": [
+    {
+      "id": "vision",
+      "title": "Vision",
+      "pages": [
+        "vision/why"
+      ]
+    },
+    {
+      "id": "overview",
+      "title": "Overview",
+      "pages": [
+        "overview/system-context"
+      ]
+    },
+    {
+      "id": "decisions",
+      "title": "Decisions",
+      "pages": [
+        "decisions/own-builder",
+        "decisions/milestone-trees"
+      ]
+    },
+    {
+      "id": "services",
+      "title": "Components",
+      "pages": [
+        "services/overview",
+        "services/cli"
+      ]
+    },
+    {
+      "id": "data",
+      "title": "Data",
+      "pages": [
+        "data/book-model",
+        "data/dist-layout"
+      ]
+    },
+    {
+      "id": "flows",
+      "title": "Key flows",
+      "pages": [
+        "flows/finalize",
+        "flows/embed-artifact",
+        "flows/milestones"
+      ]
+    },
+    {
+      "id": "integrations",
+      "title": "Integrations",
+      "pages": [
+        "integrations/archify",
+        "integrations/chrome"
+      ]
+    },
+    {
+      "id": "network",
+      "title": "Runtime environment",
+      "pages": [
+        "network/topology"
+      ]
+    },
+    {
+      "id": "ux",
+      "title": "User interface",
+      "pages": [
+        "ux/reader"
+      ]
+    },
+    {
+      "id": "reference",
+      "title": "Reference",
+      "pages": [
+        "reference/check-codes"
+      ]
+    },
+    {
+      "id": "proposals",
+      "title": "Proposals",
+      "pages": [
+        "proposals/phase-2"
+      ]
+    }
+  ],
+  "plugins": {
+    "archify": {
+      "path": "~/.kiro/crew/skills/archify"
+    }
+  },
+  "subtitle": "An AI-native skill for writing system design books that build to static HTML readable over file://",
+  "description": "The design book of ReDocs, written with ReDocs. Sources: the redocs repository (skill/redocs), the file:// spike, and the Kiro Crew dogfood."
+}

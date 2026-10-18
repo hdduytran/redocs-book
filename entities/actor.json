@@ -1,0 +1,20 @@
+[
+  {
+    "id": "app:owner",
+    "type": "actor",
+    "name": "Owner (author)",
+    "summary": "Owns the documented system; gives instructions and answers TODO(owner) questions"
+  },
+  {
+    "id": "app:agent",
+    "type": "actor",
+    "name": "AI agent",
+    "summary": "Reads SKILL.md and calls the redocs CLI"
+  },
+  {
+    "id": "app:reader",
+    "type": "actor",
+    "name": "Reader",
+    "summary": "Stakeholder or developer opening dist/index.html over file://"
+  }
+]

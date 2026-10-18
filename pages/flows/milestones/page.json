@@ -1,0 +1,11 @@
+{
+  "id": "flows/milestones",
+  "title": "Milestone and variant resolution",
+  "kind": "flow",
+  "status": "draft",
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: skill/redocs/lib/milestone-order-and-lifecycle.mjs",
+    "redocs: skill/redocs/lib/command-promote-milestone.mjs"
+  ]
+}

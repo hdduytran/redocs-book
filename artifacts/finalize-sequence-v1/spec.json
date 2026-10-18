@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "ReDocs v1: redocs finalize",
+    "output": "finalize-sequence-v1.html",
+    "column_fit": "spread",
+    "quality_profile": "showcase"
+  },
+  "participants": [
+    { "id": "agent", "type": "frontend", "label": "Agent", "sublabel": "caller" },
+    { "id": "cli", "type": "backend", "label": "CLI", "sublabel": "redocs.mjs" },
+    { "id": "loader", "type": "backend", "label": "Loader", "sublabel": "schemas" },
+    { "id": "render", "type": "backend", "label": "Render", "sublabel": "all milestones" },
+    { "id": "check", "type": "security", "label": "Check", "sublabel": "RD000-RD012" },
+    { "id": "build", "type": "backend", "label": "Build", "sublabel": "dist writer" },
+    { "id": "chrome", "type": "external", "label": "Chrome", "sublabel": "CDP pipe" }
+  ],
+  "segments": [
+    { "from": 150, "to": 290, "label": "Check" },
+    { "from": 300, "to": 392, "label": "Build" },
+    { "from": 405, "to": 520, "label": "Browser gate" }
+  ],
+  "messages": [
+    { "id": "call", "from": "agent", "to": "cli", "y": 160, "label": "finalize <book>", "variant": "emphasis" },
+    { "id": "load", "from": "cli", "to": "loader", "y": 190, "label": "load book", "variant": "emphasis" },
+    { "id": "model", "from": "loader", "to": "render", "y": 220, "label": "model + diags", "variant": "default" },
+    { "id": "rendered", "from": "render", "to": "check", "y": 250, "label": "pages + refs", "variant": "default" },
+    { "id": "verdict", "from": "check", "to": "cli", "y": 280, "label": "errors?", "variant": "return" },
+    { "id": "build", "from": "cli", "to": "build", "y": 320, "label": "reuse render", "variant": "emphasis" },
+    { "id": "written", "from": "build", "to": "cli", "y": 350, "label": "distHash", "variant": "return" },
+    { "id": "open", "from": "cli", "to": "chrome", "y": 415, "label": "open each page", "variant": "security" },
+    { "id": "report", "from": "chrome", "to": "cli", "y": 445, "label": "console + requests", "variant": "return" },
+    { "id": "receipt", "from": "cli", "to": "build", "y": 475, "label": "write receipt", "variant": "dashed" },
+    { "id": "result", "from": "cli", "to": "agent", "y": 505, "label": "exit 0 / 1", "variant": "return" }
+  ],
+  "activations": [
+    { "participant": "cli", "from": 160, "to": 510, "type": "backend" },
+    { "participant": "render", "from": 220, "to": 255, "type": "backend" },
+    { "participant": "check", "from": 250, "to": 285, "type": "security" },
+    { "participant": "build", "from": 320, "to": 355, "type": "backend" },
+    { "participant": "chrome", "from": 415, "to": 450, "type": "external" }
+  ],
+  "cards": [
+    { "dot": "rose", "title": "Stops early", "items": ["Any check error ends finalize before build", "--strict also fails on warnings"] },
+    { "dot": "emerald", "title": "One render", "items": ["Build reuses the in-memory render that check validated"] },
+    { "dot": "orange", "title": "Browser gate", "items": ["Real file:// load, no relaxed security flags", "Console errors or failed requests fail the run"] }
+  ]
+}

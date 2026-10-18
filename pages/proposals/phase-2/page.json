@@ -1,0 +1,11 @@
+{
+  "id": "proposals/phase-2",
+  "title": "Proposal: phase 2",
+  "kind": "proposal",
+  "status": "draft",
+  "updated": "2026-10-18",
+  "sources": [
+    "Phase 2 backlog in the implementation plan",
+    "Kiro Crew dogfood findings, 2026-10-18"
+  ]
+}

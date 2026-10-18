@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "artifactId": "system-context-v1",
+  "plugin": "archify",
+  "pluginVersion": "3.0.1",
+  "options": {
+    "type": "architecture"
+  },
+  "inputHash": "sha256:66a7d3f91a7d4f592cbae230ad1e89983123e0ea45f9b88430c32b36ccafe3aa",
+  "output": "system-context-v1.html",
+  "title": "ReDocs v1: system context",
+  "pluginReceipt": {
+    "status": "pass",
+    "gates": {
+      "validate": "pass",
+      "deliver": "pass",
+      "check": "pass",
+      "browser-check": "pass"
+    },
+    "diagnostics": []
+  }
+}

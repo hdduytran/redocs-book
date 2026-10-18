@@ -1,0 +1,17 @@
+[
+  {
+    "id": "plugin:archify",
+    "type": "plugin",
+    "name": "archify plugin",
+    "summary": "Runs archify finalize in a scratch folder and copies the HTML",
+    "depends_on": [
+      "ext:archify"
+    ]
+  },
+  {
+    "id": "plugin:html",
+    "type": "plugin",
+    "name": "html plugin",
+    "summary": "Wireframes, mockups and other tools output; rejects remote resources and fetch()"
+  }
+]

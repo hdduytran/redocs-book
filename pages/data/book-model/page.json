@@ -1,0 +1,15 @@
+{
+  "id": "data/book-model",
+  "title": "Book model",
+  "kind": "data",
+  "status": "draft",
+  "updated": "2026-10-18",
+  "sources": [
+    "redocs: skill/redocs/schemas/",
+    "redocs: skill/redocs/lib/load-book-from-directory.mjs"
+  ],
+  "entities": [
+    "db:book-repo",
+    "mod:loader"
+  ]
+}
