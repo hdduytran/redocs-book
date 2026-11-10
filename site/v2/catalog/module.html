@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en" data-milestone="v2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="ReDocs">
+<title>module · ReDocs System Design Book (v2 (phase 2))</title>
+<script>try{var t=localStorage.getItem('redocs-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script>try{var w=Number(localStorage.getItem('redocs-chat-width'));if(w>0)document.documentElement.style.setProperty('--rd-chat-width',w+'px');var c=JSON.parse(sessionStorage.getItem("redocs-chat-state:redocs")||'null');if(c&&c.open&&!/[?&]embed=1/.test(location.search))document.documentElement.classList.add('rd-chat-open');}catch(e){}</script>
+<link rel="stylesheet" href="../../_redocs/redocs.css">
+</head>
+<body>
+<a class="rd-skip" href="#rd-main">Skip to content</a>
+<header class="rd-header">
+  <button class="rd-menu" type="button" aria-controls="rd-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+  <a class="rd-brand" href="../index.html">ReDocs System Design Book</a>
+  <nav class="rd-milestones" aria-label="Milestones"><ul><li><a class="rd-ms rd-ms--current" href="../../v1/catalog/module.html" title="ReDocs 0.1.0 as built.">v1 (0.1.0)</a></li><li><a class="rd-ms rd-ms--planned is-active" href="module.html" aria-current="true" title="Phase 2 backlog: UI strings per book language, presentation mode, chapter PDF export.">v2 (phase 2)</a></li></ul></nav>
+  <div class="rd-search" role="search">
+    <label class="rd-visually-hidden" for="rd-search-input">Search this book</label>
+    <input id="rd-search-input" type="search" placeholder="Search…" autocomplete="off" data-base="../" aria-controls="rd-search-results">
+    <ul id="rd-search-results" class="rd-search__results" role="listbox" hidden></ul>
+  </div>
+  <button class="rd-theme" type="button" aria-label="Toggle dark mode">◐</button>
+  <button class="rd-chat-toggle" type="button" aria-controls="rd-chat" aria-expanded="false" hidden>✦ Ask AI</button>
+</header>
+<div class="rd-layout">
+<nav class="rd-nav" id="rd-nav" aria-label="Book contents"><ul><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Vision</span><ul><li><a href="../vision/why.html">Why ReDocs exists</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Overview</span><ul><li><a href="../overview/system-context.html">System context</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Decisions</span><ul><li><a href="../decisions/own-builder.html">ADR-001: Own builder instead of Starlight</a></li><li><a href="../decisions/milestone-trees.html">ADR-002: One page tree per milestone</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Components</span><ul><li><a href="../services/overview.html">Components</a></li><li><a href="../services/cli.html">CLI and commands</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Data</span><ul><li><a href="../data/book-model.html">Book model</a></li><li><a href="../data/dist-layout.html">dist/ layout</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Key flows</span><ul><li><a href="../flows/finalize.html">The finalize gate</a></li><li><a href="../flows/embed-artifact.html">Embedding artifacts</a></li><li><a href="../flows/milestones.html">Milestone and variant resolution</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Integrations</span><ul><li><a href="../integrations/archify.html">archify</a></li><li><a href="../integrations/chrome.html">Headless Chrome</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Runtime environment</span><ul><li><a href="../network/topology.html">Runtime environment</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">User interface</span><ul><li><a href="../ux/reader.html">Reader experience</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Reference</span><ul><li><a href="../reference/check-codes.html">Check codes</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Proposals</span><ul><li><a href="../proposals/phase-2.html">Proposal: phase 2</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Catalog</span><ul><li><a href="index.html">All entities</a></li><li><a href="actor.html">actor</a></li><li><a href="datastore.html">datastore</a></li><li><a href="external.html">external</a></li><li><a href="module.html" aria-current="page" class="is-active">module</a></li><li><a href="plugin.html">plugin</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Changes</span><ul><li><a href="../changes/v1-to-v2.html">v1 → v2</a></li></ul></li></ul></nav>
+<main id="rd-main" class="rd-main" tabindex="-1">
+  <div class="rd-context"><span class="rd-badge rd-badge--ms rd-badge--planned">v2 (phase 2) · planned</span></div>
+  
+  <article class="rd-article">
+<h1>module</h1>
+<section class="rd-entity-card" id="mod-authoring">
+<h2>Authoring commands <code>mod:authoring</code></h2>
+<p>init, add-page, add-entity, add-variant</p>
+<dl>
+
+
+<dt>Depends on</dt><dd><a href="module.html#mod-loader">Loader + schemas</a></dd>
+
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-build">
+<h2>Build <code>mod:build</code></h2>
+<p>Page shell, generated pages, search index, artifact and asset copies, distHash</p>
+<dl>
+
+
+<dt>Depends on</dt><dd><a href="module.html#mod-renderer">Renderer</a></dd>
+
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-pdf-export">
+<h2>Chapter PDF export <code>mod:pdf-export</code></h2>
+<p>Proposed: print one chapter to PDF</p>
+<dl>
+
+
+<dt>Depends on</dt><dd><a href="module.html#mod-cdp">Chrome CDP checker</a></dd>
+<dt>Lifecycle</dt><dd>since v2</dd>
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-check">
+<h2>Check gate <code>mod:check</code></h2>
+<p>Rules RD000-RD012 over the rendered model</p>
+<dl>
+
+
+<dt>Depends on</dt><dd><a href="module.html#mod-renderer">Renderer</a></dd>
+
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-cdp">
+<h2>Chrome CDP checker <code>mod:cdp</code></h2>
+<p>Headless Chrome over --remote-debugging-pipe: console errors, failed requests, screenshots</p>
+<dl>
+
+
+<dt>Depends on</dt><dd><a href="external.html#ext-chrome">Chrome / Chromium</a></dd>
+
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-embed">
+<h2>Embed + plugin registry <code>mod:embed</code></h2>
+<p>Copies the spec, runs the adapter, writes a receipt with the spec sha256; --refresh-stale</p>
+<dl>
+
+
+<dt>Depends on</dt><dd><a href="module.html#mod-loader">Loader + schemas</a></dd>
+
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-finalize">
+<h2>Finalize <code>mod:finalize</code></h2>
+<p>check, build, then the file:// browser check; writes finalize-receipt.json</p>
+<dl>
+
+
+<dt>Depends on</dt><dd><a href="module.html#mod-check">Check gate</a>, <a href="module.html#mod-build">Build</a>, <a href="module.html#mod-cdp">Chrome CDP checker</a></dd>
+
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-loader">
+<h2>Loader + schemas <code>mod:loader</code></h2>
+<p>Reads a book and validates it with ajv (JSON Schema 2020-12); problems become diagnostics</p>
+<dl>
+
+<dt>Tech</dt><dd>ajv</dd>
+
+
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-ui-i18n">
+<h2>Localized UI strings <code>mod:ui-i18n</code></h2>
+<p>Proposed: UI string table selected by book.json language</p>
+<dl>
+
+
+
+<dt>Lifecycle</dt><dd>since v2</dd>
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-pack">
+<h2>Pack <code>mod:pack</code></h2>
+<p>Deterministic zip of dist/ (yazl)</p>
+<dl>
+
+<dt>Tech</dt><dd>yazl</dd>
+
+
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-presentation">
+<h2>Presentation mode <code>mod:presentation</code></h2>
+<p>Proposed: present one chapter as slides</p>
+<dl>
+
+
+
+<dt>Lifecycle</dt><dd>since v2</dd>
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-promote">
+<h2>Promote <code>mod:promote</code></h2>
+<p>Moves the current milestone pointer and lists what to review</p>
+<dl>
+
+
+
+
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-cli">
+<h2>redocs CLI <code>mod:cli</code></h2>
+<p>bin/redocs.mjs: parses arguments, runs commands, prints text or JSON receipts, exit codes 0/1/2</p>
+<dl>
+
+
+
+
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-renderer">
+<h2>Renderer <code>mod:renderer</code></h2>
+<p>Markdown (markdown-it) and HTML fragments with page:, asset:, [[entity]] and redocs-embed; renders every page at every milestone in memory</p>
+<dl>
+
+<dt>Tech</dt><dd>markdown-it</dd>
+<dt>Depends on</dt><dd><a href="module.html#mod-loader">Loader + schemas</a></dd>
+
+
+</dl>
+</section>
+<section class="rd-entity-card" id="mod-skill-md">
+<h2>SKILL.md + references <code>mod:skill-md</code></h2>
+<p>Agent contract and intent router; six reference documents</p>
+<dl>
+
+
+
+
+
+</dl>
+</section>
+
+  </article>
+  
+  
+</main>
+<aside class="rd-toc" aria-label="On this page"><p class="rd-toc__title">On this page</p><ul><li class="rd-toc__l2"><a href="#mod-authoring">Authoring commands</a></li><li class="rd-toc__l2"><a href="#mod-build">Build</a></li><li class="rd-toc__l2"><a href="#mod-pdf-export">Chapter PDF export</a></li><li class="rd-toc__l2"><a href="#mod-check">Check gate</a></li><li class="rd-toc__l2"><a href="#mod-cdp">Chrome CDP checker</a></li><li class="rd-toc__l2"><a href="#mod-embed">Embed + plugin registry</a></li><li class="rd-toc__l2"><a href="#mod-finalize">Finalize</a></li><li class="rd-toc__l2"><a href="#mod-loader">Loader + schemas</a></li><li class="rd-toc__l2"><a href="#mod-ui-i18n">Localized UI strings</a></li><li class="rd-toc__l2"><a href="#mod-pack">Pack</a></li><li class="rd-toc__l2"><a href="#mod-presentation">Presentation mode</a></li><li class="rd-toc__l2"><a href="#mod-promote">Promote</a></li><li class="rd-toc__l2"><a href="#mod-cli">redocs CLI</a></li><li class="rd-toc__l2"><a href="#mod-renderer">Renderer</a></li><li class="rd-toc__l2"><a href="#mod-skill-md">SKILL.md + references</a></li></ul></aside>
+</div>
+
+<script src="../search-index.js"></script>
+<script src="../../_redocs/redocs.js"></script>
+<aside id="rd-chat" class="rd-chat" aria-labelledby="rd-chat-title" hidden>
+  <div class="rd-chat__resize" role="separator" aria-orientation="vertical" aria-label="Resize chat panel (arrow keys)" tabindex="0"></div>
+  <div class="rd-chat__head">
+    <h2 id="rd-chat-title" class="rd-chat__title">Ask this book</h2>
+    <button type="button" class="rd-chat__history-btn" aria-pressed="false" aria-controls="rd-chat-history">History</button>
+    <button type="button" class="rd-chat__new">New chat</button>
+    <button type="button" class="rd-chat__expand" aria-pressed="false" aria-label="Widen chat panel" title="Widen / narrow">⇔</button>
+    <button type="button" class="rd-chat__close" aria-label="Close chat">×</button>
+  </div>
+  <details class="rd-chat__settings">
+    <summary>Model settings</summary>
+    <label>Provider <select name="provider"><option value="anthropic">Anthropic (your API key)</option><option value="openai-compatible">OpenAI-compatible (vLLM, Ollama, LM Studio, gateway)</option></select></label>
+    <label>Endpoint <input name="endpoint" type="url" autocomplete="off" spellcheck="false" placeholder="http://host:8000 or …/v1/chat/completions"></label>
+    <div class="rd-chat__model">
+      <label for="rd-chat-model">Model</label>
+      <div class="rd-chat__model-row"><select id="rd-chat-model" name="model"></select><button type="button" class="rd-chat__models-refresh" aria-label="Reload models from the endpoint" title="Reload models (GET /v1/models)">↻</button></div>
+      <span class="rd-chat__models-status rd-muted" role="status" aria-live="polite"></span>
+    </div>
+    <label>API key <input name="key" type="password" autocomplete="off" spellcheck="false"></label>
+    <label class="rd-chat__check"><input name="remember" type="checkbox"> Remember the key on this device</label>
+    <label class="rd-chat__check"><input name="stream" type="checkbox" checked> Stream replies as they are written</label>
+  </details>
+  <section id="rd-chat-history" class="rd-chat__history" aria-label="Chat history" hidden>
+    <div class="rd-chat__history-bar">
+      <label class="rd-visually-hidden" for="rd-chat-history-filter">Filter conversations</label>
+      <input id="rd-chat-history-filter" type="search" placeholder="Filter conversations…" autocomplete="off">
+      <button type="button" class="rd-chat__history-clear">Clear all</button>
+    </div>
+    <ul class="rd-chat__history-list"></ul>
+    <p class="rd-chat__history-note rd-muted">Conversations are saved in this browser only.</p>
+  </section>
+  <div class="rd-chat__log" role="log" aria-live="polite" aria-label="Conversation"></div>
+  <div class="rd-chat__status" role="status" aria-live="polite" hidden><span class="rd-chat__dots" aria-hidden="true"><span></span><span></span><span></span></span><span class="rd-chat__status-text"></span><span class="rd-chat__elapsed"></span></div>
+  <form class="rd-chat__form">
+    <label class="rd-visually-hidden" for="rd-chat-input">Your question</label>
+    <textarea id="rd-chat-input" rows="3" placeholder="Ask about this system… (Enter to send, Shift+Enter for a new line)"></textarea>
+    <div class="rd-chat__actions"><button type="submit" class="rd-chat__send">Send</button><button type="button" class="rd-chat__stop" hidden>Stop</button></div>
+  </form>
+  <p class="rd-chat__privacy rd-muted"></p>
+</aside>
+<script type="application/json" id="rd-chat-config">{"page":null,"base":"../"}</script>
+<script src="../agent-index.js"></script>
+<script src="../../_redocs/redocs-query.js"></script>
+<script src="../../_redocs/redocs-chat-stream.js"></script>
+<script src="../../_redocs/redocs-chat-agent.js"></script>
+<script src="../../_redocs/redocs-chat-store.js"></script>
+<script src="../../_redocs/markdown-it.min.js"></script>
+<script src="../../_redocs/redocs-chat-render.js"></script>
+<script src="../../_redocs/redocs-chat.js"></script>
+</body>
+</html>

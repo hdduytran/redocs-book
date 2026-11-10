@@ -1,0 +1,35 @@
+# Release the ReDocs book as a zip on every version tag. Written by `redocs ci`.
+# Push a tag like v1.0.0 (git tag v1.0.0 && git push origin v1.0.0) to trigger it.
+name: ReDocs release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the published site is committed
+        run: |
+          if [ ! -f "site/index.html" ]; then
+            echo "::error::site/index.html is missing. Run 'redocs finalize .' and commit site/ before tagging."
+            exit 1
+          fi
+
+      - name: Zip the book
+        run: |
+          rm -rf dist-release && mkdir -p dist-release
+          cp -R "site" "dist-release/redocs-book"
+          (cd dist-release && zip -r -X "../redocs-book.zip" "redocs-book")
+
+      - name: Create the release and attach the zip
+        uses: softprops/action-gh-release@v2
+        with:
+          files: redocs-book.zip

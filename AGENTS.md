@@ -30,7 +30,24 @@ The `redocs` CLI ships with the ReDocs skill: `node <skill>/bin/redocs.mjs <comm
 | Add a milestone variant | `redocs add-variant . <page-id> <milestone>` |
 | Embed a diagram | `redocs embed . archify <artifact-id> --spec <file.json> --type architecture` |
 | Validate | `redocs check .` |
+| Find where something is described | `redocs query . search <words>`, then `redocs query . read page:<id>#<anchor>` (or `redocs mcp .` for an MCP client) |
 | **Finish** | `redocs finalize .` (check, build and the file:// browser check) |
 | Share | `redocs pack .` (zip of `dist/`) |
+| The skill was updated (`RD014` warning) | `redocs upgrade .` to see the plan, then `redocs upgrade . --apply` |
 
 Work is done only when `redocs finalize .` exits 0. Report the receipt summary, not a guess.
+
+## Published site
+
+`book.json` sets `"publish": { "dir": "site" }`, so the built book lives in `site/` and is
+**committed** — readers open `site/index.html` straight from the repository. You do not copy or
+rsync it by hand:
+
+- `redocs finalize .` rebuilds `dist/` and, when every check passes, refreshes `site/` for you.
+- Commit the updated `site/` folder together with the sources you changed.
+- `dist/` stays git-ignored; `site/` is the only built copy under version control.
+- `redocs check .` reports `RD015` when `site/` is missing or older than the current sources, so a
+  commit never ships a stale published site.
+- A version tag (`v*`) triggers the release pipeline (`.github/workflows/redocs-release.yml` and
+  `.gitlab-ci.yml`), which zips `site/` and attaches it to the release. Regenerate with
+  `redocs ci .`.

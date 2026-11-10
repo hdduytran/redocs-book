@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-milestone="v2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="ReDocs">
+<title>The finalize gate · ReDocs System Design Book (v2 (phase 2))</title>
+<script>try{var t=localStorage.getItem('redocs-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script>try{var w=Number(localStorage.getItem('redocs-chat-width'));if(w>0)document.documentElement.style.setProperty('--rd-chat-width',w+'px');var c=JSON.parse(sessionStorage.getItem("redocs-chat-state:redocs")||'null');if(c&&c.open&&!/[?&]embed=1/.test(location.search))document.documentElement.classList.add('rd-chat-open');}catch(e){}</script>
+<link rel="stylesheet" href="../../_redocs/redocs.css">
+</head>
+<body>
+<a class="rd-skip" href="#rd-main">Skip to content</a>
+<header class="rd-header">
+  <button class="rd-menu" type="button" aria-controls="rd-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+  <a class="rd-brand" href="../index.html">ReDocs System Design Book</a>
+  <nav class="rd-milestones" aria-label="Milestones"><ul><li><a class="rd-ms rd-ms--current" href="../../v1/flows/finalize.html" title="ReDocs 0.1.0 as built.">v1 (0.1.0)</a></li><li><a class="rd-ms rd-ms--planned is-active" href="finalize.html" aria-current="true" title="Phase 2 backlog: UI strings per book language, presentation mode, chapter PDF export.">v2 (phase 2)</a></li></ul></nav>
+  <div class="rd-search" role="search">
+    <label class="rd-visually-hidden" for="rd-search-input">Search this book</label>
+    <input id="rd-search-input" type="search" placeholder="Search…" autocomplete="off" data-base="../" aria-controls="rd-search-results">
+    <ul id="rd-search-results" class="rd-search__results" role="listbox" hidden></ul>
+  </div>
+  <button class="rd-theme" type="button" aria-label="Toggle dark mode">◐</button>
+  <button class="rd-chat-toggle" type="button" aria-controls="rd-chat" aria-expanded="false" hidden>✦ Ask AI</button>
+</header>
+<div class="rd-layout">
+<nav class="rd-nav" id="rd-nav" aria-label="Book contents"><ul><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Vision</span><ul><li><a href="../vision/why.html">Why ReDocs exists</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Overview</span><ul><li><a href="../overview/system-context.html">System context</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Decisions</span><ul><li><a href="../decisions/own-builder.html">ADR-001: Own builder instead of Starlight</a></li><li><a href="../decisions/milestone-trees.html">ADR-002: One page tree per milestone</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Components</span><ul><li><a href="../services/overview.html">Components</a></li><li><a href="../services/cli.html">CLI and commands</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Data</span><ul><li><a href="../data/book-model.html">Book model</a></li><li><a href="../data/dist-layout.html">dist/ layout</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Key flows</span><ul><li><a href="finalize.html" aria-current="page" class="is-active">The finalize gate</a></li><li><a href="embed-artifact.html">Embedding artifacts</a></li><li><a href="milestones.html">Milestone and variant resolution</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Integrations</span><ul><li><a href="../integrations/archify.html">archify</a></li><li><a href="../integrations/chrome.html">Headless Chrome</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Runtime environment</span><ul><li><a href="../network/topology.html">Runtime environment</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">User interface</span><ul><li><a href="../ux/reader.html">Reader experience</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Reference</span><ul><li><a href="../reference/check-codes.html">Check codes</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Proposals</span><ul><li><a href="../proposals/phase-2.html">Proposal: phase 2</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Catalog</span><ul><li><a href="../catalog/index.html">All entities</a></li><li><a href="../catalog/actor.html">actor</a></li><li><a href="../catalog/datastore.html">datastore</a></li><li><a href="../catalog/external.html">external</a></li><li><a href="../catalog/module.html">module</a></li><li><a href="../catalog/plugin.html">plugin</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Changes</span><ul><li><a href="../changes/v1-to-v2.html">v1 → v2</a></li></ul></li></ul></nav>
+<main id="rd-main" class="rd-main" tabindex="-1">
+  <div class="rd-context"><span class="rd-badge rd-badge--ms rd-badge--planned">v2 (phase 2) · planned</span><span class="rd-kind">flow</span><div class="rd-copy" data-rd-copy hidden>
+  <button type="button" class="rd-copy__main" data-rd-copy-action="path-content" title="Copy page path and content for an AI">⧉ Copy for AI</button>
+  <button type="button" class="rd-copy__toggle" aria-haspopup="true" aria-expanded="false" aria-label="More copy options">▾</button>
+  <ul class="rd-copy__menu" role="menu" hidden>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="path-content">Path + content (Markdown)</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="ai-context">AI context block</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="content">Content only</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="path">Path only (page: ref)</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="citation">Citation link</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="deep-link">Deep link (file://)</button></li>
+  </ul>
+  <span class="rd-copy__status" role="status" aria-live="polite"></span>
+</div></div>
+  
+  <article class="rd-article">
+<h1 id="the-finalize-gate">The finalize gate</h1>
+<p><a class="rd-entity rd-entity--module" href="../catalog/module.html#mod-finalize" title="check, build, then the file:// browser check; writes finalize-receipt.json">Finalize</a> is the only evidence an agent may use to say &quot;the book is done&quot;. <code>SKILL.md</code> says so explicitly: done means <code>finalize</code> exited 0.</p>
+<figure class="rd-embed"><iframe class="rd-embed__frame" src="../../artifacts/finalize-sequence-v1/finalize-sequence-v1.html" title="ReDocs v1: redocs finalize" height="720" data-max-height="720" loading="lazy"></iframe><figcaption>redocs finalize: check, build, then the browser gate</figcaption><a class="rd-embed__open" href="../../artifacts/finalize-sequence-v1/finalize-sequence-v1.html" target="_blank" rel="noopener">Open full screen</a></figure><h2 id="steps">Steps</h2>
+<ol>
+<li><strong>Check</strong>: the <a class="rd-entity rd-entity--module" href="../catalog/module.html#mod-loader" title="Reads a book and validates it with ajv (JSON Schema 2020-12); problems become diagnostics">Loader + schemas</a> reads the book; the <a class="rd-entity rd-entity--module" href="../catalog/module.html#mod-renderer" title="Markdown (markdown-it) and HTML fragments with page:, asset:, [[entity]] and redocs-embed; renders every page at every milestone in memory">Renderer</a> renders every page at every milestone in memory; <a class="rd-entity rd-entity--module" href="../catalog/module.html#mod-check" title="Rules RD000-RD012 over the rendered model">Check gate</a> runs RD000–RD012. Any error stops here, before build (<code>--strict</code> also fails on warnings).</li>
+<li><strong>Build</strong>: <a class="rd-entity rd-entity--module" href="../catalog/module.html#mod-build" title="Page shell, generated pages, search index, artifact and asset copies, distHash">Build</a> reuses the same render that was checked, writes <code>dist/</code> and computes <code>distHash</code>.</li>
+<li><strong>Browser gate</strong>: <a class="rd-entity rd-entity--module" href="../catalog/module.html#mod-cdp" title="Headless Chrome over --remote-debugging-pipe: console errors, failed requests, screenshots">Chrome CDP checker</a> opens every HTML page (artifacts and assets excluded) over <code>file://</code> in headless Chrome with a throwaway profile, collecting console errors, exceptions, failed requests and pages that do not load.</li>
+<li><strong>Receipt</strong>: <code>dist/finalize-receipt.json</code> records checks, build and browser results.</li>
+</ol>
+<h2 id="why-the-browser-gate-matches-a-real-reader">Why the browser gate matches a real reader</h2>
+<p>Chrome runs <strong>without</strong> file-relaxing flags such as <code>--allow-file-access-from-files</code>. The spike showed that a blocked <code>fetch()</code> under <code>file://</code> is exactly the kind of failure the gate must catch, and the checker caught it.</p>
+<p><code>REDOCS_CHROME_NO_SANDBOX=1</code> only turns off Chrome's process sandbox (needed inside an already-sandboxed agent shell); it does not change what a page may load.</p>
+<h2 id="cleanup">Cleanup</h2>
+<p>Chrome is closed with <code>Browser.close</code>, then <code>SIGTERM</code>/<code>SIGKILL</code> if needed; the temporary profile (<code>redocs-cdp-*</code>) is removed in <code>finally</code>.</p>
+
+  </article>
+  <footer class="rd-page-footer"><dl class="rd-meta"><dt>Status</dt><dd>draft</dd><dt>Updated</dt><dd>2026-10-18</dd><dt>Entities</dt><dd><a class="rd-entity rd-entity--module" href="../catalog/module.html#mod-finalize" title="check, build, then the file:// browser check; writes finalize-receipt.json">Finalize</a></dd><dt>Sources</dt><dd><ul><li>redocs: skill/redocs/lib/command-finalize-book.mjs</li><li>redocs: skill/redocs/lib/chrome-cdp-file-protocol-check.mjs</li></ul></dd></dl></footer>
+  <section class="rd-comments" aria-label="Comments"><h2 class="rd-comments__title">Comments</h2><p class="rd-muted">No comments yet. Add one with <code>redocs comment &lt;book&gt; &lt;page-id&gt; --author "..." --body "..."</code> and commit it.</p></section>
+</main>
+<aside class="rd-toc" aria-label="On this page"><p class="rd-toc__title">On this page</p><ul><li class="rd-toc__l2"><a href="#steps">Steps</a></li><li class="rd-toc__l2"><a href="#why-the-browser-gate-matches-a-real-reader">Why the browser gate matches a real reader</a></li><li class="rd-toc__l2"><a href="#cleanup">Cleanup</a></li></ul></aside>
+</div>
+<script type="application/json" id="rd-copy-meta">{"pageRef":"page:flows/finalize","title":"The finalize gate","milestone":"v2","kind":"flow","entities":["mod:finalize"],"bookTitle":"ReDocs System Design Book","sourceFormat":"md"}</script>
+<script type="text/plain" id="rd-copy-source"># The finalize gate
+
+[[mod:finalize]] is the only evidence an agent may use to say &quot;the book is done&quot;. `SKILL.md` says so explicitly: done means `finalize` exited 0.
+
+```redocs-embed
+{&quot;artifact&quot;: &quot;finalize-sequence-v1&quot;, &quot;caption&quot;: &quot;redocs finalize: check, build, then the browser gate&quot;, &quot;height&quot;: 720}
+```
+
+## Steps
+
+1. **Check**: the [[mod:loader]] reads the book; the [[mod:renderer]] renders every page at every milestone in memory; [[mod:check]] runs RD000–RD012. Any error stops here, before build (`--strict` also fails on warnings).
+2. **Build**: [[mod:build]] reuses the same render that was checked, writes `dist/` and computes `distHash`.
+3. **Browser gate**: [[mod:cdp]] opens every HTML page (artifacts and assets excluded) over `file://` in headless Chrome with a throwaway profile, collecting console errors, exceptions, failed requests and pages that do not load.
+4. **Receipt**: `dist/finalize-receipt.json` records checks, build and browser results.
+
+## Why the browser gate matches a real reader
+
+Chrome runs **without** file-relaxing flags such as `--allow-file-access-from-files`. The spike showed that a blocked `fetch()` under `file://` is exactly the kind of failure the gate must catch, and the checker caught it.
+
+`REDOCS_CHROME_NO_SANDBOX=1` only turns off Chrome&#39;s process sandbox (needed inside an already-sandboxed agent shell); it does not change what a page may load.
+
+## Cleanup
+
+Chrome is closed with `Browser.close`, then `SIGTERM`/`SIGKILL` if needed; the temporary profile (`redocs-cdp-*`) is removed in `finally`.
+</script>
+<script src="../search-index.js"></script>
+<script src="../../_redocs/redocs.js"></script>
+<aside id="rd-chat" class="rd-chat" aria-labelledby="rd-chat-title" hidden>
+  <div class="rd-chat__resize" role="separator" aria-orientation="vertical" aria-label="Resize chat panel (arrow keys)" tabindex="0"></div>
+  <div class="rd-chat__head">
+    <h2 id="rd-chat-title" class="rd-chat__title">Ask this book</h2>
+    <button type="button" class="rd-chat__history-btn" aria-pressed="false" aria-controls="rd-chat-history">History</button>
+    <button type="button" class="rd-chat__new">New chat</button>
+    <button type="button" class="rd-chat__expand" aria-pressed="false" aria-label="Widen chat panel" title="Widen / narrow">⇔</button>
+    <button type="button" class="rd-chat__close" aria-label="Close chat">×</button>
+  </div>
+  <details class="rd-chat__settings">
+    <summary>Model settings</summary>
+    <label>Provider <select name="provider"><option value="anthropic">Anthropic (your API key)</option><option value="openai-compatible">OpenAI-compatible (vLLM, Ollama, LM Studio, gateway)</option></select></label>
+    <label>Endpoint <input name="endpoint" type="url" autocomplete="off" spellcheck="false" placeholder="http://host:8000 or …/v1/chat/completions"></label>
+    <div class="rd-chat__model">
+      <label for="rd-chat-model">Model</label>
+      <div class="rd-chat__model-row"><select id="rd-chat-model" name="model"></select><button type="button" class="rd-chat__models-refresh" aria-label="Reload models from the endpoint" title="Reload models (GET /v1/models)">↻</button></div>
+      <span class="rd-chat__models-status rd-muted" role="status" aria-live="polite"></span>
+    </div>
+    <label>API key <input name="key" type="password" autocomplete="off" spellcheck="false"></label>
+    <label class="rd-chat__check"><input name="remember" type="checkbox"> Remember the key on this device</label>
+    <label class="rd-chat__check"><input name="stream" type="checkbox" checked> Stream replies as they are written</label>
+  </details>
+  <section id="rd-chat-history" class="rd-chat__history" aria-label="Chat history" hidden>
+    <div class="rd-chat__history-bar">
+      <label class="rd-visually-hidden" for="rd-chat-history-filter">Filter conversations</label>
+      <input id="rd-chat-history-filter" type="search" placeholder="Filter conversations…" autocomplete="off">
+      <button type="button" class="rd-chat__history-clear">Clear all</button>
+    </div>
+    <ul class="rd-chat__history-list"></ul>
+    <p class="rd-chat__history-note rd-muted">Conversations are saved in this browser only.</p>
+  </section>
+  <div class="rd-chat__log" role="log" aria-live="polite" aria-label="Conversation"></div>
+  <div class="rd-chat__status" role="status" aria-live="polite" hidden><span class="rd-chat__dots" aria-hidden="true"><span></span><span></span><span></span></span><span class="rd-chat__status-text"></span><span class="rd-chat__elapsed"></span></div>
+  <form class="rd-chat__form">
+    <label class="rd-visually-hidden" for="rd-chat-input">Your question</label>
+    <textarea id="rd-chat-input" rows="3" placeholder="Ask about this system… (Enter to send, Shift+Enter for a new line)"></textarea>
+    <div class="rd-chat__actions"><button type="submit" class="rd-chat__send">Send</button><button type="button" class="rd-chat__stop" hidden>Stop</button></div>
+  </form>
+  <p class="rd-chat__privacy rd-muted"></p>
+</aside>
+<script type="application/json" id="rd-chat-config">{"page":"page:flows/finalize","base":"../"}</script>
+<script src="../agent-index.js"></script>
+<script src="../../_redocs/redocs-query.js"></script>
+<script src="../../_redocs/redocs-chat-stream.js"></script>
+<script src="../../_redocs/redocs-chat-agent.js"></script>
+<script src="../../_redocs/redocs-chat-store.js"></script>
+<script src="../../_redocs/markdown-it.min.js"></script>
+<script src="../../_redocs/redocs-chat-render.js"></script>
+<script src="../../_redocs/redocs-chat.js"></script>
+</body>
+</html>

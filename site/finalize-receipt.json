@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "command": "finalize",
+  "redocsVersion": "0.4.0",
+  "checks": {
+    "ok": true,
+    "errors": 0,
+    "warnings": 9
+  },
+  "build": {
+    "dist": "dist",
+    "milestones": [
+      "v1",
+      "v2"
+    ],
+    "pages": 51,
+    "distHash": "sha256:4cd15b5e7f9d40807104a585c2923edaa335bacdccb145382a7d92b81ef5ac47",
+    "sourceHash": "sha256:2d520331250de11ba9ec6bebf221715dbcf1a7dfc90da088ffabdae06142934e"
+  },
+  "browser": {
+    "status": "passed",
+    "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "pages": 52,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "pageErrors": 0,
+    "problems": []
+  },
+  "publish": null
+}

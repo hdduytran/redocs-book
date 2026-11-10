@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" data-milestone="v1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="ReDocs">
+<title>Runtime environment · ReDocs System Design Book (v1 (0.1.0))</title>
+<script>try{var t=localStorage.getItem('redocs-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script>try{var w=Number(localStorage.getItem('redocs-chat-width'));if(w>0)document.documentElement.style.setProperty('--rd-chat-width',w+'px');var c=JSON.parse(sessionStorage.getItem("redocs-chat-state:redocs")||'null');if(c&&c.open&&!/[?&]embed=1/.test(location.search))document.documentElement.classList.add('rd-chat-open');}catch(e){}</script>
+<link rel="stylesheet" href="../../_redocs/redocs.css">
+</head>
+<body>
+<a class="rd-skip" href="#rd-main">Skip to content</a>
+<header class="rd-header">
+  <button class="rd-menu" type="button" aria-controls="rd-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+  <a class="rd-brand" href="../index.html">ReDocs System Design Book</a>
+  <nav class="rd-milestones" aria-label="Milestones"><ul><li><a class="rd-ms rd-ms--current is-active" href="topology.html" aria-current="true" title="ReDocs 0.1.0 as built.">v1 (0.1.0)</a></li><li><a class="rd-ms rd-ms--planned" href="../../v2/network/topology.html" title="Phase 2 backlog: UI strings per book language, presentation mode, chapter PDF export.">v2 (phase 2)</a></li></ul></nav>
+  <div class="rd-search" role="search">
+    <label class="rd-visually-hidden" for="rd-search-input">Search this book</label>
+    <input id="rd-search-input" type="search" placeholder="Search…" autocomplete="off" data-base="../" aria-controls="rd-search-results">
+    <ul id="rd-search-results" class="rd-search__results" role="listbox" hidden></ul>
+  </div>
+  <button class="rd-theme" type="button" aria-label="Toggle dark mode">◐</button>
+  <button class="rd-chat-toggle" type="button" aria-controls="rd-chat" aria-expanded="false" hidden>✦ Ask AI</button>
+</header>
+<div class="rd-layout">
+<nav class="rd-nav" id="rd-nav" aria-label="Book contents"><ul><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Vision</span><ul><li><a href="../vision/why.html">Why ReDocs exists</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Overview</span><ul><li><a href="../overview/system-context.html">System context</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Decisions</span><ul><li><a href="../decisions/own-builder.html">ADR-001: Own builder instead of Starlight</a></li><li><a href="../decisions/milestone-trees.html">ADR-002: One page tree per milestone</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Components</span><ul><li><a href="../services/overview.html">Components</a></li><li><a href="../services/cli.html">CLI and commands</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Data</span><ul><li><a href="../data/book-model.html">Book model</a></li><li><a href="../data/dist-layout.html">dist/ layout</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Key flows</span><ul><li><a href="../flows/finalize.html">The finalize gate</a></li><li><a href="../flows/embed-artifact.html">Embedding artifacts</a></li><li><a href="../flows/milestones.html">Milestone and variant resolution</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Integrations</span><ul><li><a href="../integrations/archify.html">archify</a></li><li><a href="../integrations/chrome.html">Headless Chrome</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Runtime environment</span><ul><li><a href="topology.html" aria-current="page" class="is-active">Runtime environment</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">User interface</span><ul><li><a href="../ux/reader.html">Reader experience</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Reference</span><ul><li><a href="../reference/check-codes.html">Check codes</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Proposals</span><ul><li><a href="../proposals/phase-2.html">Proposal: phase 2</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Catalog</span><ul><li><a href="../catalog/index.html">All entities</a></li><li><a href="../catalog/actor.html">actor</a></li><li><a href="../catalog/datastore.html">datastore</a></li><li><a href="../catalog/external.html">external</a></li><li><a href="../catalog/module.html">module</a></li><li><a href="../catalog/plugin.html">plugin</a></li></ul></li></ul></nav>
+<main id="rd-main" class="rd-main" tabindex="-1">
+  <div class="rd-context"><span class="rd-badge rd-badge--ms rd-badge--current">v1 (0.1.0) · current</span><span class="rd-kind">infra</span><div class="rd-copy" data-rd-copy hidden>
+  <button type="button" class="rd-copy__main" data-rd-copy-action="path-content" title="Copy page path and content for an AI">⧉ Copy for AI</button>
+  <button type="button" class="rd-copy__toggle" aria-haspopup="true" aria-expanded="false" aria-label="More copy options">▾</button>
+  <ul class="rd-copy__menu" role="menu" hidden>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="path-content">Path + content (Markdown)</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="ai-context">AI context block</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="content">Content only</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="path">Path only (page: ref)</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="citation">Citation link</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="deep-link">Deep link (file://)</button></li>
+  </ul>
+  <span class="rd-copy__status" role="status" aria-live="polite"></span>
+</div></div>
+  <div class="rd-notice" role="note"><span class="rd-notice__compare">Compare milestones: <a href="../../v2/compare/network/topology/v1-vs-v2.html">v1 ↔ v2</a></span></div>
+  <article class="rd-article">
+<h1 id="runtime-environment-v1-file">Runtime environment (v1): file://</h1>
+<p>A v1 book has a single environment: <strong>the reader's browser opening files from disk</strong>. No server, no network.</p>
+<h2 id="behaviour-verified-by-the-spike-chrome-155-2026-10-18">Behaviour verified by the spike (Chrome 155, 2026-10-18)</h2>
+<div class="rd-table-wrap"><table>
+<thead>
+<tr>
+<th>Behaviour</th>
+<th>Result</th>
+<th>Design consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iframe with a relative <code>src</code> to a local file</td>
+<td>works</td>
+<td>artifacts embed as iframes</td>
+</tr>
+<tr>
+<td>Parent reads <code>iframe.contentDocument</code></td>
+<td><strong>fails</strong> (opaque origin)</td>
+<td>the parent cannot measure height</td>
+</tr>
+<tr>
+<td><code>postMessage(…, '*')</code> from iframe to parent</td>
+<td>works</td>
+<td>the iframe reports its own height</td>
+</tr>
+<tr>
+<td>Data through <code>&lt;script src&gt;</code></td>
+<td>works</td>
+<td>the search index is <code>search-index.js</code></td>
+</tr>
+<tr>
+<td><code>localStorage</code></td>
+<td>works</td>
+<td>theme preference, with a <code>prefers-color-scheme</code> fallback</td>
+</tr>
+<tr>
+<td><code>fetch()</code> of a local file</td>
+<td><strong>blocked</strong> (CORS)</td>
+<td><code>fetch()</code> is forbidden in output</td>
+</tr>
+<tr>
+<td>Relative links across folders, <code>../</code></td>
+<td>works</td>
+<td>every href is relative</td>
+</tr>
+<tr>
+<td><code>&lt;meta http-equiv=&quot;refresh&quot;&gt;</code></td>
+<td>works</td>
+<td><code>dist/index.html</code> redirects to the current milestone</td>
+</tr>
+</tbody>
+</table></div>
+<p>The same output also works when served over HTTPS, which is how this book is published on GitHub Pages.</p>
+<blockquote>
+<p>TODO(owner): Run the spike in Safari (<code>spikes/file-protocol/index.html</code> shows PASS/FAIL itself) and Firefox.</p>
+</blockquote>
+<p>Source: <code>spikes/file-protocol/RESULTS.md</code> in the redocs repository.</p>
+
+  </article>
+  <footer class="rd-page-footer"><dl class="rd-meta"><dt>Status</dt><dd>draft</dd><dt>Updated</dt><dd>2026-10-18</dd><dt>Sources</dt><dd><ul><li>redocs: spikes/file-protocol/RESULTS.md</li></ul></dd></dl></footer>
+  <section class="rd-comments" aria-label="Comments"><h2 class="rd-comments__title">Comments</h2><p class="rd-muted">No comments yet. Add one with <code>redocs comment &lt;book&gt; &lt;page-id&gt; --author "..." --body "..."</code> and commit it.</p></section>
+</main>
+
+</div>
+<script type="application/json" id="rd-copy-meta">{"pageRef":"page:network/topology","title":"Runtime environment","milestone":"v1","kind":"infra","entities":[],"bookTitle":"ReDocs System Design Book","sourceFormat":"md"}</script>
+<script type="text/plain" id="rd-copy-source"># Runtime environment (v1): file://
+
+A v1 book has a single environment: **the reader&#39;s browser opening files from disk**. No server, no network.
+
+## Behaviour verified by the spike (Chrome 155, 2026-10-18)
+
+| Behaviour | Result | Design consequence |
+|---|---|---|
+| iframe with a relative `src` to a local file | works | artifacts embed as iframes |
+| Parent reads `iframe.contentDocument` | **fails** (opaque origin) | the parent cannot measure height |
+| `postMessage(…, &#39;*&#39;)` from iframe to parent | works | the iframe reports its own height |
+| Data through `&lt;script src&gt;` | works | the search index is `search-index.js` |
+| `localStorage` | works | theme preference, with a `prefers-color-scheme` fallback |
+| `fetch()` of a local file | **blocked** (CORS) | `fetch()` is forbidden in output |
+| Relative links across folders, `../` | works | every href is relative |
+| `&lt;meta http-equiv=&quot;refresh&quot;&gt;` | works | `dist/index.html` redirects to the current milestone |
+
+The same output also works when served over HTTPS, which is how this book is published on GitHub Pages.
+
+&gt; TODO(owner): Run the spike in Safari (`spikes/file-protocol/index.html` shows PASS/FAIL itself) and Firefox.
+
+Source: `spikes/file-protocol/RESULTS.md` in the redocs repository.
+</script>
+<script src="../search-index.js"></script>
+<script src="../../_redocs/redocs.js"></script>
+<aside id="rd-chat" class="rd-chat" aria-labelledby="rd-chat-title" hidden>
+  <div class="rd-chat__resize" role="separator" aria-orientation="vertical" aria-label="Resize chat panel (arrow keys)" tabindex="0"></div>
+  <div class="rd-chat__head">
+    <h2 id="rd-chat-title" class="rd-chat__title">Ask this book</h2>
+    <button type="button" class="rd-chat__history-btn" aria-pressed="false" aria-controls="rd-chat-history">History</button>
+    <button type="button" class="rd-chat__new">New chat</button>
+    <button type="button" class="rd-chat__expand" aria-pressed="false" aria-label="Widen chat panel" title="Widen / narrow">⇔</button>
+    <button type="button" class="rd-chat__close" aria-label="Close chat">×</button>
+  </div>
+  <details class="rd-chat__settings">
+    <summary>Model settings</summary>
+    <label>Provider <select name="provider"><option value="anthropic">Anthropic (your API key)</option><option value="openai-compatible">OpenAI-compatible (vLLM, Ollama, LM Studio, gateway)</option></select></label>
+    <label>Endpoint <input name="endpoint" type="url" autocomplete="off" spellcheck="false" placeholder="http://host:8000 or …/v1/chat/completions"></label>
+    <div class="rd-chat__model">
+      <label for="rd-chat-model">Model</label>
+      <div class="rd-chat__model-row"><select id="rd-chat-model" name="model"></select><button type="button" class="rd-chat__models-refresh" aria-label="Reload models from the endpoint" title="Reload models (GET /v1/models)">↻</button></div>
+      <span class="rd-chat__models-status rd-muted" role="status" aria-live="polite"></span>
+    </div>
+    <label>API key <input name="key" type="password" autocomplete="off" spellcheck="false"></label>
+    <label class="rd-chat__check"><input name="remember" type="checkbox"> Remember the key on this device</label>
+    <label class="rd-chat__check"><input name="stream" type="checkbox" checked> Stream replies as they are written</label>
+  </details>
+  <section id="rd-chat-history" class="rd-chat__history" aria-label="Chat history" hidden>
+    <div class="rd-chat__history-bar">
+      <label class="rd-visually-hidden" for="rd-chat-history-filter">Filter conversations</label>
+      <input id="rd-chat-history-filter" type="search" placeholder="Filter conversations…" autocomplete="off">
+      <button type="button" class="rd-chat__history-clear">Clear all</button>
+    </div>
+    <ul class="rd-chat__history-list"></ul>
+    <p class="rd-chat__history-note rd-muted">Conversations are saved in this browser only.</p>
+  </section>
+  <div class="rd-chat__log" role="log" aria-live="polite" aria-label="Conversation"></div>
+  <div class="rd-chat__status" role="status" aria-live="polite" hidden><span class="rd-chat__dots" aria-hidden="true"><span></span><span></span><span></span></span><span class="rd-chat__status-text"></span><span class="rd-chat__elapsed"></span></div>
+  <form class="rd-chat__form">
+    <label class="rd-visually-hidden" for="rd-chat-input">Your question</label>
+    <textarea id="rd-chat-input" rows="3" placeholder="Ask about this system… (Enter to send, Shift+Enter for a new line)"></textarea>
+    <div class="rd-chat__actions"><button type="submit" class="rd-chat__send">Send</button><button type="button" class="rd-chat__stop" hidden>Stop</button></div>
+  </form>
+  <p class="rd-chat__privacy rd-muted"></p>
+</aside>
+<script type="application/json" id="rd-chat-config">{"page":"page:network/topology","base":"../"}</script>
+<script src="../agent-index.js"></script>
+<script src="../../_redocs/redocs-query.js"></script>
+<script src="../../_redocs/redocs-chat-stream.js"></script>
+<script src="../../_redocs/redocs-chat-agent.js"></script>
+<script src="../../_redocs/redocs-chat-store.js"></script>
+<script src="../../_redocs/markdown-it.min.js"></script>
+<script src="../../_redocs/redocs-chat-render.js"></script>
+<script src="../../_redocs/redocs-chat.js"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 {
   "$schema": "redocs/book.schema.json",
   "schemaVersion": 1,
+  "redocsVersion": "0.4.0",
   "id": "redocs",
   "title": "ReDocs System Design Book",
   "language": "en",
@@ -104,6 +105,7 @@
       ]
     }
   ],
+  "publish": { "dir": "site" },
   "plugins": {
     "archify": {
       "path": "~/.kiro/crew/skills/archify"

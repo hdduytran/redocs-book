@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en" data-milestone="v1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="ReDocs">
+<title>Check codes · ReDocs System Design Book (v1 (0.1.0))</title>
+<script>try{var t=localStorage.getItem('redocs-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script>try{var w=Number(localStorage.getItem('redocs-chat-width'));if(w>0)document.documentElement.style.setProperty('--rd-chat-width',w+'px');var c=JSON.parse(sessionStorage.getItem("redocs-chat-state:redocs")||'null');if(c&&c.open&&!/[?&]embed=1/.test(location.search))document.documentElement.classList.add('rd-chat-open');}catch(e){}</script>
+<link rel="stylesheet" href="../../_redocs/redocs.css">
+</head>
+<body>
+<a class="rd-skip" href="#rd-main">Skip to content</a>
+<header class="rd-header">
+  <button class="rd-menu" type="button" aria-controls="rd-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+  <a class="rd-brand" href="../index.html">ReDocs System Design Book</a>
+  <nav class="rd-milestones" aria-label="Milestones"><ul><li><a class="rd-ms rd-ms--current is-active" href="check-codes.html" aria-current="true" title="ReDocs 0.1.0 as built.">v1 (0.1.0)</a></li><li><a class="rd-ms rd-ms--planned" href="../../v2/reference/check-codes.html" title="Phase 2 backlog: UI strings per book language, presentation mode, chapter PDF export.">v2 (phase 2)</a></li></ul></nav>
+  <div class="rd-search" role="search">
+    <label class="rd-visually-hidden" for="rd-search-input">Search this book</label>
+    <input id="rd-search-input" type="search" placeholder="Search…" autocomplete="off" data-base="../" aria-controls="rd-search-results">
+    <ul id="rd-search-results" class="rd-search__results" role="listbox" hidden></ul>
+  </div>
+  <button class="rd-theme" type="button" aria-label="Toggle dark mode">◐</button>
+  <button class="rd-chat-toggle" type="button" aria-controls="rd-chat" aria-expanded="false" hidden>✦ Ask AI</button>
+</header>
+<div class="rd-layout">
+<nav class="rd-nav" id="rd-nav" aria-label="Book contents"><ul><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Vision</span><ul><li><a href="../vision/why.html">Why ReDocs exists</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Overview</span><ul><li><a href="../overview/system-context.html">System context</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Decisions</span><ul><li><a href="../decisions/own-builder.html">ADR-001: Own builder instead of Starlight</a></li><li><a href="../decisions/milestone-trees.html">ADR-002: One page tree per milestone</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Components</span><ul><li><a href="../services/overview.html">Components</a></li><li><a href="../services/cli.html">CLI and commands</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Data</span><ul><li><a href="../data/book-model.html">Book model</a></li><li><a href="../data/dist-layout.html">dist/ layout</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Key flows</span><ul><li><a href="../flows/finalize.html">The finalize gate</a></li><li><a href="../flows/embed-artifact.html">Embedding artifacts</a></li><li><a href="../flows/milestones.html">Milestone and variant resolution</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Integrations</span><ul><li><a href="../integrations/archify.html">archify</a></li><li><a href="../integrations/chrome.html">Headless Chrome</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Runtime environment</span><ul><li><a href="../network/topology.html">Runtime environment</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">User interface</span><ul><li><a href="../ux/reader.html">Reader experience</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Reference</span><ul><li><a href="check-codes.html" aria-current="page" class="is-active">Check codes</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Proposals</span><ul><li><a href="../proposals/phase-2.html">Proposal: phase 2</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Catalog</span><ul><li><a href="../catalog/index.html">All entities</a></li><li><a href="../catalog/actor.html">actor</a></li><li><a href="../catalog/datastore.html">datastore</a></li><li><a href="../catalog/external.html">external</a></li><li><a href="../catalog/module.html">module</a></li><li><a href="../catalog/plugin.html">plugin</a></li></ul></li></ul></nav>
+<main id="rd-main" class="rd-main" tabindex="-1">
+  <div class="rd-context"><span class="rd-badge rd-badge--ms rd-badge--current">v1 (0.1.0) · current</span><span class="rd-kind">reference</span><div class="rd-copy" data-rd-copy hidden>
+  <button type="button" class="rd-copy__main" data-rd-copy-action="path-content" title="Copy page path and content for an AI">⧉ Copy for AI</button>
+  <button type="button" class="rd-copy__toggle" aria-haspopup="true" aria-expanded="false" aria-label="More copy options">▾</button>
+  <ul class="rd-copy__menu" role="menu" hidden>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="path-content">Path + content (Markdown)</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="ai-context">AI context block</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="content">Content only</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="path">Path only (page: ref)</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="citation">Citation link</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="deep-link">Deep link (file://)</button></li>
+  </ul>
+  <span class="rd-copy__status" role="status" aria-live="polite"></span>
+</div></div>
+  
+  <article class="rd-article">
+<h1 id="check-codes">Check codes</h1>
+<p><a class="rd-entity rd-entity--module" href="../catalog/module.html#mod-check" title="Rules RD000-RD012 over the rendered model">Check gate</a> reports diagnostics as <code>SEVERITY CODE file pointer|line: message</code> (or JSON with <code>--json</code>), plus a <code>hint</code>. The full table with fixes lives in the skill's <code>references/check-codes.md</code>; a test keeps it in sync with <code>RULE_CODES</code> in the code.</p>
+<div class="rd-table-wrap"><table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Severity</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RD000</td>
+<td>error</td>
+<td>JSON cannot be read or parsed</td>
+</tr>
+<tr>
+<td>RD001</td>
+<td>error</td>
+<td>Schema violation; page id differs from its folder; duplicate entity id</td>
+</tr>
+<tr>
+<td>RD002</td>
+<td>error/warning</td>
+<td>A chapter lists an unknown or duplicate page; a page is in no chapter</td>
+</tr>
+<tr>
+<td>RD003</td>
+<td>error</td>
+<td>Broken <code>page:</code> link or <code>#anchor</code></td>
+</tr>
+<tr>
+<td>RD004</td>
+<td>error</td>
+<td>Entity not registered</td>
+</tr>
+<tr>
+<td>RD005</td>
+<td>error</td>
+<td>A variant mentions an entity that does not exist at its milestone</td>
+</tr>
+<tr>
+<td>RD006</td>
+<td>error/warning</td>
+<td>Bad variant milestone or missing source; a stray source the page never renders</td>
+</tr>
+<tr>
+<td>RD007</td>
+<td>error/warning</td>
+<td>Artifact missing, failed or older than its spec; artifact embedded nowhere</td>
+</tr>
+<tr>
+<td>RD008</td>
+<td>error</td>
+<td>Asset does not exist</td>
+</tr>
+<tr>
+<td>RD009</td>
+<td>error</td>
+<td>Remote resource (not offline)</td>
+</tr>
+<tr>
+<td>RD010</td>
+<td>error</td>
+<td>Entity graph: dependencies, replacement, since/until</td>
+</tr>
+<tr>
+<td>RD011</td>
+<td>warning</td>
+<td>Open <code>TODO(owner)</code> question</td>
+</tr>
+<tr>
+<td>RD012</td>
+<td>error</td>
+<td>Not exactly one current milestone; duplicate milestone/chapter ids</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="design-of-the-codes">Design of the codes</h2>
+<ul>
+<li>Codes are stable so agents and people can look them up across versions.</li>
+<li>A problem seen at several milestones is reported once: a broken link on a shared page does not name a milestone.</li>
+<li>RD011 is a warning on purpose: a book with open questions still builds, but the owner sees what is left. <code>--strict</code> turns it into a failure.</li>
+<li>The &quot;stray source&quot; warning (RD006) came from the Kiro Crew dogfood: an <code>index.md</code> silently shadowed an <code>index.html</code> and a wireframe disappeared without any error.</li>
+</ul>
+
+  </article>
+  <footer class="rd-page-footer"><dl class="rd-meta"><dt>Status</dt><dd>draft</dd><dt>Updated</dt><dd>2026-10-18</dd><dt>Entities</dt><dd><a class="rd-entity rd-entity--module" href="../catalog/module.html#mod-check" title="Rules RD000-RD012 over the rendered model">Check gate</a></dd><dt>Sources</dt><dd><ul><li>redocs: skill/redocs/lib/check-book-rules.mjs</li><li>redocs: skill/redocs/references/check-codes.md</li></ul></dd></dl></footer>
+  <section class="rd-comments" aria-label="Comments"><h2 class="rd-comments__title">Comments</h2><p class="rd-muted">No comments yet. Add one with <code>redocs comment &lt;book&gt; &lt;page-id&gt; --author "..." --body "..."</code> and commit it.</p></section>
+</main>
+
+</div>
+<script type="application/json" id="rd-copy-meta">{"pageRef":"page:reference/check-codes","title":"Check codes","milestone":"v1","kind":"reference","entities":["mod:check"],"bookTitle":"ReDocs System Design Book","sourceFormat":"md"}</script>
+<script type="text/plain" id="rd-copy-source"># Check codes
+
+[[mod:check]] reports diagnostics as `SEVERITY CODE file pointer|line: message` (or JSON with `--json`), plus a `hint`. The full table with fixes lives in the skill&#39;s `references/check-codes.md`; a test keeps it in sync with `RULE_CODES` in the code.
+
+| Code | Severity | Meaning |
+|---|---|---|
+| RD000 | error | JSON cannot be read or parsed |
+| RD001 | error | Schema violation; page id differs from its folder; duplicate entity id |
+| RD002 | error/warning | A chapter lists an unknown or duplicate page; a page is in no chapter |
+| RD003 | error | Broken `page:` link or `#anchor` |
+| RD004 | error | Entity not registered |
+| RD005 | error | A variant mentions an entity that does not exist at its milestone |
+| RD006 | error/warning | Bad variant milestone or missing source; a stray source the page never renders |
+| RD007 | error/warning | Artifact missing, failed or older than its spec; artifact embedded nowhere |
+| RD008 | error | Asset does not exist |
+| RD009 | error | Remote resource (not offline) |
+| RD010 | error | Entity graph: dependencies, replacement, since/until |
+| RD011 | warning | Open `TODO(owner)` question |
+| RD012 | error | Not exactly one current milestone; duplicate milestone/chapter ids |
+
+## Design of the codes
+
+- Codes are stable so agents and people can look them up across versions.
+- A problem seen at several milestones is reported once: a broken link on a shared page does not name a milestone.
+- RD011 is a warning on purpose: a book with open questions still builds, but the owner sees what is left. `--strict` turns it into a failure.
+- The &quot;stray source&quot; warning (RD006) came from the Kiro Crew dogfood: an `index.md` silently shadowed an `index.html` and a wireframe disappeared without any error.
+</script>
+<script src="../search-index.js"></script>
+<script src="../../_redocs/redocs.js"></script>
+<aside id="rd-chat" class="rd-chat" aria-labelledby="rd-chat-title" hidden>
+  <div class="rd-chat__resize" role="separator" aria-orientation="vertical" aria-label="Resize chat panel (arrow keys)" tabindex="0"></div>
+  <div class="rd-chat__head">
+    <h2 id="rd-chat-title" class="rd-chat__title">Ask this book</h2>
+    <button type="button" class="rd-chat__history-btn" aria-pressed="false" aria-controls="rd-chat-history">History</button>
+    <button type="button" class="rd-chat__new">New chat</button>
+    <button type="button" class="rd-chat__expand" aria-pressed="false" aria-label="Widen chat panel" title="Widen / narrow">⇔</button>
+    <button type="button" class="rd-chat__close" aria-label="Close chat">×</button>
+  </div>
+  <details class="rd-chat__settings">
+    <summary>Model settings</summary>
+    <label>Provider <select name="provider"><option value="anthropic">Anthropic (your API key)</option><option value="openai-compatible">OpenAI-compatible (vLLM, Ollama, LM Studio, gateway)</option></select></label>
+    <label>Endpoint <input name="endpoint" type="url" autocomplete="off" spellcheck="false" placeholder="http://host:8000 or …/v1/chat/completions"></label>
+    <div class="rd-chat__model">
+      <label for="rd-chat-model">Model</label>
+      <div class="rd-chat__model-row"><select id="rd-chat-model" name="model"></select><button type="button" class="rd-chat__models-refresh" aria-label="Reload models from the endpoint" title="Reload models (GET /v1/models)">↻</button></div>
+      <span class="rd-chat__models-status rd-muted" role="status" aria-live="polite"></span>
+    </div>
+    <label>API key <input name="key" type="password" autocomplete="off" spellcheck="false"></label>
+    <label class="rd-chat__check"><input name="remember" type="checkbox"> Remember the key on this device</label>
+    <label class="rd-chat__check"><input name="stream" type="checkbox" checked> Stream replies as they are written</label>
+  </details>
+  <section id="rd-chat-history" class="rd-chat__history" aria-label="Chat history" hidden>
+    <div class="rd-chat__history-bar">
+      <label class="rd-visually-hidden" for="rd-chat-history-filter">Filter conversations</label>
+      <input id="rd-chat-history-filter" type="search" placeholder="Filter conversations…" autocomplete="off">
+      <button type="button" class="rd-chat__history-clear">Clear all</button>
+    </div>
+    <ul class="rd-chat__history-list"></ul>
+    <p class="rd-chat__history-note rd-muted">Conversations are saved in this browser only.</p>
+  </section>
+  <div class="rd-chat__log" role="log" aria-live="polite" aria-label="Conversation"></div>
+  <div class="rd-chat__status" role="status" aria-live="polite" hidden><span class="rd-chat__dots" aria-hidden="true"><span></span><span></span><span></span></span><span class="rd-chat__status-text"></span><span class="rd-chat__elapsed"></span></div>
+  <form class="rd-chat__form">
+    <label class="rd-visually-hidden" for="rd-chat-input">Your question</label>
+    <textarea id="rd-chat-input" rows="3" placeholder="Ask about this system… (Enter to send, Shift+Enter for a new line)"></textarea>
+    <div class="rd-chat__actions"><button type="submit" class="rd-chat__send">Send</button><button type="button" class="rd-chat__stop" hidden>Stop</button></div>
+  </form>
+  <p class="rd-chat__privacy rd-muted"></p>
+</aside>
+<script type="application/json" id="rd-chat-config">{"page":"page:reference/check-codes","base":"../"}</script>
+<script src="../agent-index.js"></script>
+<script src="../../_redocs/redocs-query.js"></script>
+<script src="../../_redocs/redocs-chat-stream.js"></script>
+<script src="../../_redocs/redocs-chat-agent.js"></script>
+<script src="../../_redocs/redocs-chat-store.js"></script>
+<script src="../../_redocs/markdown-it.min.js"></script>
+<script src="../../_redocs/redocs-chat-render.js"></script>
+<script src="../../_redocs/redocs-chat.js"></script>
+</body>
+</html>

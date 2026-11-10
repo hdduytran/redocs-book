@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" data-milestone="v2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="ReDocs">
+<title>dist/ layout · ReDocs System Design Book (v2 (phase 2))</title>
+<script>try{var t=localStorage.getItem('redocs-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script>try{var w=Number(localStorage.getItem('redocs-chat-width'));if(w>0)document.documentElement.style.setProperty('--rd-chat-width',w+'px');var c=JSON.parse(sessionStorage.getItem("redocs-chat-state:redocs")||'null');if(c&&c.open&&!/[?&]embed=1/.test(location.search))document.documentElement.classList.add('rd-chat-open');}catch(e){}</script>
+<link rel="stylesheet" href="../../_redocs/redocs.css">
+</head>
+<body>
+<a class="rd-skip" href="#rd-main">Skip to content</a>
+<header class="rd-header">
+  <button class="rd-menu" type="button" aria-controls="rd-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+  <a class="rd-brand" href="../index.html">ReDocs System Design Book</a>
+  <nav class="rd-milestones" aria-label="Milestones"><ul><li><a class="rd-ms rd-ms--current" href="../../v1/data/dist-layout.html" title="ReDocs 0.1.0 as built.">v1 (0.1.0)</a></li><li><a class="rd-ms rd-ms--planned is-active" href="dist-layout.html" aria-current="true" title="Phase 2 backlog: UI strings per book language, presentation mode, chapter PDF export.">v2 (phase 2)</a></li></ul></nav>
+  <div class="rd-search" role="search">
+    <label class="rd-visually-hidden" for="rd-search-input">Search this book</label>
+    <input id="rd-search-input" type="search" placeholder="Search…" autocomplete="off" data-base="../" aria-controls="rd-search-results">
+    <ul id="rd-search-results" class="rd-search__results" role="listbox" hidden></ul>
+  </div>
+  <button class="rd-theme" type="button" aria-label="Toggle dark mode">◐</button>
+  <button class="rd-chat-toggle" type="button" aria-controls="rd-chat" aria-expanded="false" hidden>✦ Ask AI</button>
+</header>
+<div class="rd-layout">
+<nav class="rd-nav" id="rd-nav" aria-label="Book contents"><ul><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Vision</span><ul><li><a href="../vision/why.html">Why ReDocs exists</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Overview</span><ul><li><a href="../overview/system-context.html">System context</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Decisions</span><ul><li><a href="../decisions/own-builder.html">ADR-001: Own builder instead of Starlight</a></li><li><a href="../decisions/milestone-trees.html">ADR-002: One page tree per milestone</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Components</span><ul><li><a href="../services/overview.html">Components</a></li><li><a href="../services/cli.html">CLI and commands</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Data</span><ul><li><a href="book-model.html">Book model</a></li><li><a href="dist-layout.html" aria-current="page" class="is-active">dist/ layout</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Key flows</span><ul><li><a href="../flows/finalize.html">The finalize gate</a></li><li><a href="../flows/embed-artifact.html">Embedding artifacts</a></li><li><a href="../flows/milestones.html">Milestone and variant resolution</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Integrations</span><ul><li><a href="../integrations/archify.html">archify</a></li><li><a href="../integrations/chrome.html">Headless Chrome</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Runtime environment</span><ul><li><a href="../network/topology.html">Runtime environment</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">User interface</span><ul><li><a href="../ux/reader.html">Reader experience</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Reference</span><ul><li><a href="../reference/check-codes.html">Check codes</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Proposals</span><ul><li><a href="../proposals/phase-2.html">Proposal: phase 2</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Catalog</span><ul><li><a href="../catalog/index.html">All entities</a></li><li><a href="../catalog/actor.html">actor</a></li><li><a href="../catalog/datastore.html">datastore</a></li><li><a href="../catalog/external.html">external</a></li><li><a href="../catalog/module.html">module</a></li><li><a href="../catalog/plugin.html">plugin</a></li></ul></li><li class="rd-nav__chapter"><span class="rd-nav__chapter-title">Changes</span><ul><li><a href="../changes/v1-to-v2.html">v1 → v2</a></li></ul></li></ul></nav>
+<main id="rd-main" class="rd-main" tabindex="-1">
+  <div class="rd-context"><span class="rd-badge rd-badge--ms rd-badge--planned">v2 (phase 2) · planned</span><span class="rd-kind">data</span><div class="rd-copy" data-rd-copy hidden>
+  <button type="button" class="rd-copy__main" data-rd-copy-action="path-content" title="Copy page path and content for an AI">⧉ Copy for AI</button>
+  <button type="button" class="rd-copy__toggle" aria-haspopup="true" aria-expanded="false" aria-label="More copy options">▾</button>
+  <ul class="rd-copy__menu" role="menu" hidden>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="path-content">Path + content (Markdown)</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="ai-context">AI context block</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="content">Content only</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="path">Path only (page: ref)</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="citation">Citation link</button></li>
+    <li role="none"><button role="menuitem" type="button" data-rd-copy-action="deep-link">Deep link (file://)</button></li>
+  </ul>
+  <span class="rd-copy__status" role="status" aria-live="polite"></span>
+</div></div>
+  
+  <article class="rd-article">
+<h1 id="dist-layout">dist/ layout</h1>
+<p><a class="rd-entity rd-entity--module" href="../catalog/module.html#mod-build" title="Page shell, generated pages, search index, artifact and asset copies, distHash">Build</a> deletes and rewrites the whole <a class="rd-entity rd-entity--datastore" href="../catalog/datastore.html#db-dist" title="Static HTML site, one tree per milestone; git-ignored">dist/</a> on every build. Every <code>href</code>/<code>src</code> is relative, so the folder can be moved, zipped or opened from anywhere. Path conventions live in one place: <code>SITE</code> in <code>lib/site-paths-and-urls.mjs</code>.</p>
+<pre><code class="language-text">dist/
+├── index.html                     meta refresh to &lt;current&gt;/index.html
+├── finalize-receipt.json          written by finalize
+├── _redocs/redocs.css, redocs.js  shared theme
+├── assets/…                       copied from the book's assets/
+├── artifacts/&lt;id&gt;/&lt;output&gt;        copied artifacts with the resize script injected
+└── &lt;milestone&gt;/
+    ├── index.html                 home page for the milestone
+    ├── search-index.js            window.__REDOCS_SEARCH = […]
+    ├── &lt;page-id&gt;.html
+    ├── _standalone/&lt;page-id&gt;.html self-contained HTML pages (shown in an iframe)
+    ├── catalog/index.html, catalog/&lt;type&gt;.html
+    ├── changes/&lt;a&gt;-to-&lt;b&gt;.html
+    └── compare/&lt;page-id&gt;/&lt;a&gt;-vs-&lt;b&gt;.html
+</code></pre>
+<h2 id="generated-pages">Generated pages</h2>
+<div class="rd-table-wrap"><table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Built from</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Home</td>
+<td><code>book.json</code></td>
+<td>every milestone</td>
+</tr>
+<tr>
+<td>Catalog</td>
+<td><code>entities/</code></td>
+<td>every milestone; alive entities first, the rest under &quot;Not at this milestone&quot;</td>
+</tr>
+<tr>
+<td>Changes A → B</td>
+<td>entity lifecycles + page variants</td>
+<td>each adjacent pair, plus current → last when not adjacent</td>
+</tr>
+<tr>
+<td>Compare A ↔ B</td>
+<td>two variants of a page</td>
+<td>pages whose variants differ for that pair</td>
+</tr>
+</tbody>
+</table></div>
+<p>Compare pages iframe the real pages with <code>?embed=1</code> (hiding the chrome), so relative links inside stay correct.</p>
+<h2 id="determinism">Determinism</h2>
+<p>No timestamps in the output; displayed dates come from <code>page.json</code> <code>updated</code>. <code>distHash</code> hashes the relative path and content of every file in sorted order, and a test asserts that two builds give the same hash.</p>
+
+  </article>
+  <footer class="rd-page-footer"><dl class="rd-meta"><dt>Status</dt><dd>draft</dd><dt>Updated</dt><dd>2026-10-18</dd><dt>Entities</dt><dd><a class="rd-entity rd-entity--datastore" href="../catalog/datastore.html#db-dist" title="Static HTML site, one tree per milestone; git-ignored">dist/</a> <a class="rd-entity rd-entity--module" href="../catalog/module.html#mod-build" title="Page shell, generated pages, search index, artifact and asset copies, distHash">Build</a></dd><dt>Sources</dt><dd><ul><li>redocs: skill/redocs/lib/site-paths-and-urls.mjs</li><li>redocs: skill/redocs/lib/build-generated-pages.mjs</li></ul></dd></dl></footer>
+  <section class="rd-comments" aria-label="Comments"><h2 class="rd-comments__title">Comments</h2><p class="rd-muted">No comments yet. Add one with <code>redocs comment &lt;book&gt; &lt;page-id&gt; --author "..." --body "..."</code> and commit it.</p></section>
+</main>
+<aside class="rd-toc" aria-label="On this page"><p class="rd-toc__title">On this page</p><ul><li class="rd-toc__l2"><a href="#generated-pages">Generated pages</a></li><li class="rd-toc__l2"><a href="#determinism">Determinism</a></li></ul></aside>
+</div>
+<script type="application/json" id="rd-copy-meta">{"pageRef":"page:data/dist-layout","title":"dist/ layout","milestone":"v2","kind":"data","entities":["db:dist","mod:build"],"bookTitle":"ReDocs System Design Book","sourceFormat":"md"}</script>
+<script type="text/plain" id="rd-copy-source"># dist/ layout
+
+[[mod:build]] deletes and rewrites the whole [[db:dist]] on every build. Every `href`/`src` is relative, so the folder can be moved, zipped or opened from anywhere. Path conventions live in one place: `SITE` in `lib/site-paths-and-urls.mjs`.
+
+```text
+dist/
+├── index.html                     meta refresh to &lt;current&gt;/index.html
+├── finalize-receipt.json          written by finalize
+├── _redocs/redocs.css, redocs.js  shared theme
+├── assets/…                       copied from the book&#39;s assets/
+├── artifacts/&lt;id&gt;/&lt;output&gt;        copied artifacts with the resize script injected
+└── &lt;milestone&gt;/
+    ├── index.html                 home page for the milestone
+    ├── search-index.js            window.__REDOCS_SEARCH = […]
+    ├── &lt;page-id&gt;.html
+    ├── _standalone/&lt;page-id&gt;.html self-contained HTML pages (shown in an iframe)
+    ├── catalog/index.html, catalog/&lt;type&gt;.html
+    ├── changes/&lt;a&gt;-to-&lt;b&gt;.html
+    └── compare/&lt;page-id&gt;/&lt;a&gt;-vs-&lt;b&gt;.html
+```
+
+## Generated pages
+
+| Page | Built from | When |
+|---|---|---|
+| Home | `book.json` | every milestone |
+| Catalog | `entities/` | every milestone; alive entities first, the rest under &quot;Not at this milestone&quot; |
+| Changes A → B | entity lifecycles + page variants | each adjacent pair, plus current → last when not adjacent |
+| Compare A ↔ B | two variants of a page | pages whose variants differ for that pair |
+
+Compare pages iframe the real pages with `?embed=1` (hiding the chrome), so relative links inside stay correct.
+
+## Determinism
+
+No timestamps in the output; displayed dates come from `page.json` `updated`. `distHash` hashes the relative path and content of every file in sorted order, and a test asserts that two builds give the same hash.
+</script>
+<script src="../search-index.js"></script>
+<script src="../../_redocs/redocs.js"></script>
+<aside id="rd-chat" class="rd-chat" aria-labelledby="rd-chat-title" hidden>
+  <div class="rd-chat__resize" role="separator" aria-orientation="vertical" aria-label="Resize chat panel (arrow keys)" tabindex="0"></div>
+  <div class="rd-chat__head">
+    <h2 id="rd-chat-title" class="rd-chat__title">Ask this book</h2>
+    <button type="button" class="rd-chat__history-btn" aria-pressed="false" aria-controls="rd-chat-history">History</button>
+    <button type="button" class="rd-chat__new">New chat</button>
+    <button type="button" class="rd-chat__expand" aria-pressed="false" aria-label="Widen chat panel" title="Widen / narrow">⇔</button>
+    <button type="button" class="rd-chat__close" aria-label="Close chat">×</button>
+  </div>
+  <details class="rd-chat__settings">
+    <summary>Model settings</summary>
+    <label>Provider <select name="provider"><option value="anthropic">Anthropic (your API key)</option><option value="openai-compatible">OpenAI-compatible (vLLM, Ollama, LM Studio, gateway)</option></select></label>
+    <label>Endpoint <input name="endpoint" type="url" autocomplete="off" spellcheck="false" placeholder="http://host:8000 or …/v1/chat/completions"></label>
+    <div class="rd-chat__model">
+      <label for="rd-chat-model">Model</label>
+      <div class="rd-chat__model-row"><select id="rd-chat-model" name="model"></select><button type="button" class="rd-chat__models-refresh" aria-label="Reload models from the endpoint" title="Reload models (GET /v1/models)">↻</button></div>
+      <span class="rd-chat__models-status rd-muted" role="status" aria-live="polite"></span>
+    </div>
+    <label>API key <input name="key" type="password" autocomplete="off" spellcheck="false"></label>
+    <label class="rd-chat__check"><input name="remember" type="checkbox"> Remember the key on this device</label>
+    <label class="rd-chat__check"><input name="stream" type="checkbox" checked> Stream replies as they are written</label>
+  </details>
+  <section id="rd-chat-history" class="rd-chat__history" aria-label="Chat history" hidden>
+    <div class="rd-chat__history-bar">
+      <label class="rd-visually-hidden" for="rd-chat-history-filter">Filter conversations</label>
+      <input id="rd-chat-history-filter" type="search" placeholder="Filter conversations…" autocomplete="off">
+      <button type="button" class="rd-chat__history-clear">Clear all</button>
+    </div>
+    <ul class="rd-chat__history-list"></ul>
+    <p class="rd-chat__history-note rd-muted">Conversations are saved in this browser only.</p>
+  </section>
+  <div class="rd-chat__log" role="log" aria-live="polite" aria-label="Conversation"></div>
+  <div class="rd-chat__status" role="status" aria-live="polite" hidden><span class="rd-chat__dots" aria-hidden="true"><span></span><span></span><span></span></span><span class="rd-chat__status-text"></span><span class="rd-chat__elapsed"></span></div>
+  <form class="rd-chat__form">
+    <label class="rd-visually-hidden" for="rd-chat-input">Your question</label>
+    <textarea id="rd-chat-input" rows="3" placeholder="Ask about this system… (Enter to send, Shift+Enter for a new line)"></textarea>
+    <div class="rd-chat__actions"><button type="submit" class="rd-chat__send">Send</button><button type="button" class="rd-chat__stop" hidden>Stop</button></div>
+  </form>
+  <p class="rd-chat__privacy rd-muted"></p>
+</aside>
+<script type="application/json" id="rd-chat-config">{"page":"page:data/dist-layout","base":"../"}</script>
+<script src="../agent-index.js"></script>
+<script src="../../_redocs/redocs-query.js"></script>
+<script src="../../_redocs/redocs-chat-stream.js"></script>
+<script src="../../_redocs/redocs-chat-agent.js"></script>
+<script src="../../_redocs/redocs-chat-store.js"></script>
+<script src="../../_redocs/markdown-it.min.js"></script>
+<script src="../../_redocs/redocs-chat-render.js"></script>
+<script src="../../_redocs/redocs-chat.js"></script>
+</body>
+</html>

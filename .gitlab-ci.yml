@@ -1,0 +1,31 @@
+# Release the ReDocs book as a zip on every version tag. Written by `redocs ci`.
+# Push a tag like v1.0.0 (git tag v1.0.0 && git push origin v1.0.0) to trigger it.
+stages:
+  - release
+
+redocs-release:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v/'
+  variables:
+    PACKAGE_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/redocs-book/${CI_COMMIT_TAG}/redocs-book.zip"
+  script:
+    - |
+      if [ ! -f "site/index.html" ]; then
+        echo "site/index.html is missing. Run 'redocs finalize .' and commit site/ before tagging."
+        exit 1
+      fi
+    - apk add --no-cache zip curl >/dev/null
+    - rm -rf dist-release && mkdir -p dist-release
+    - cp -R "site" "dist-release/redocs-book"
+    - (cd dist-release && zip -r -X "../redocs-book.zip" "redocs-book")
+    # Upload the zip to the project's generic package registry, then attach it to the release.
+    - 'curl --fail --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file "redocs-book.zip" "${PACKAGE_URL}"'
+  release:
+    tag_name: '$CI_COMMIT_TAG'
+    description: 'ReDocs book redocs $CI_COMMIT_TAG'
+    assets:
+      links:
+        - name: 'redocs-book.zip'
+          url: '${PACKAGE_URL}'
